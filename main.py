@@ -1,16 +1,7 @@
 import sys
-from stats import get_num_words
-from stats import get_num_characters
-from stats import key_value
+from stats import get_num_words, get_num_characters, key_value
 
-
-def input_check():
-    if len(sys.argv) != 2:
-        return False
-    else:
-        return True
-
-
+#takes in the file path and returns the contents of that file
 def get_book_text(path_to_file):
     with open(path_to_file) as file:
         file_contents = file.read()
@@ -18,30 +9,33 @@ def get_book_text(path_to_file):
         return file_contents
 
 
-def report(sorted_keyed_dictionary):
+def print_report(path):
+    book_text = get_book_text(path)
+    word_count = get_num_words(book_text)
+    char_count = key_value(get_num_characters(book_text))
 
     print(f"""============ BOOKBOT ============
-Analyzing book found at {sys.argv[1]}...
------------ Word Count ----------""")    
-    print(get_num_words(get_book_text(sys.argv[1])))
-    print("--------- Character Count -------")
+Analyzing book found at {path}...
+----------- Word Count ----------
+{word_count}
+--------- Character Count -------""")    
 
-    for dictionary in sorted_keyed_dictionary:
+    for dictionary in char_count:
         character = dictionary["char"]
         if character.isalpha():
-            count = dictionary["num"]
-            print(f"{character}: {count}")
+            print(f"{character}: {dictionary["num"]}")
 
 
 
 def main():
-    input_ok = input_check()
-    if input_ok == True:
-        report(key_value(get_num_characters(get_book_text(sys.argv[1]))))
+    if len(sys.argv) == 2:
+        path = sys.argv[1]
+        print_report(path)
     
     else:
         print("Usage: python3 main.py <path_to_book>")
         sys.exit(1)
     
-main()
+if __name__ == "__main__":
+    main()
 

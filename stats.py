@@ -1,15 +1,10 @@
 #returns the total number of words
 def get_num_words(book):
-    counter = 0
-    book_words = book.split()
-
-    for word in book_words:
-        counter += 1
-
-    return f"Found {counter} total words"
+    word_count = len(book.split())
+    return f"Found {word_count} total words"
 
 
-#returns a dict of the count of each character 
+#returns the count of each character as a dictionary
 def get_num_characters(book):
     counted_characters = {}
     text = book.lower()
@@ -24,7 +19,7 @@ def get_num_characters(book):
     return counted_characters
 
 
-#takes in a dictionary of counted characters, and makes a list of dictionaries with keys?
+#takes in a dictionary of counted characters, and makes a list of dictionaries with key value pairs
 def key_value(items):
     list_of_characters = []
 
